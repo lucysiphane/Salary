@@ -4,7 +4,7 @@ This project implemts multlinear regression model to predict academic salaries b
 The model uses both numerical and categorical features to estimate salaries of faculity members.
 
 ### Features used
-The model utilized four predictors:
+The model utilized the following predictors:
 
 1.**Years since Phd(yrs.since.phd)**-
 Continuous numerical feature
@@ -176,6 +176,6 @@ This section demonstrates how to test the trained salary prediction model using 
 ```
 #Test the model
 result = make_predictions("Prof", "B", 15, 10, "Male")
-print(result)
+print(result)s
 ```
 
