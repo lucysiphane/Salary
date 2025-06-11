@@ -15,7 +15,7 @@ Continuous numerical feature
 **Associate Professor*
 **Full Professor*
 
-4.**Sex**-binary categorical feature
+4.**Sex**-binary categorical features
 
 ## Load the nesseccary libraries
 ```
