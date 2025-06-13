@@ -158,6 +158,7 @@ This function provides an interface to get salary predictions from our trained m
 
 **Function Definition**
 ```
+
 def make_predictions(rank, discipline, yrs_since_phd, yrs_service, sex):
     df = {
         "rank": [rank],
