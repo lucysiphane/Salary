@@ -18,7 +18,7 @@ Continuous numerical feature
 4.**Sex**-binary categorical features
 
 ## Load the nesseccary libraries
-```
+```python
 import pandas as pd
 import numpy as np
 from category_encoders import OneHotEncoder
@@ -32,28 +32,28 @@ from sklearn.impute import SimpleImputer
 ```
 ## load the data
 Detail loading of the data using panda
-```
+```python
 data=pd.read_csv("salary.csv")
 data.head(5)
 data.info()
 ```
 ### Data Exploration
 ***Scatter plot***- it shows relationship between the years of service and salary.
-```
+```python
 plt.scatter(x=data["yrs.service"], y=data["salary"])
 plt.xlabel("yrs.service")
 plt.ylabel("salary")
 plt.title("Salary vs yrs.service")
 ```
 ***Correlation HeatMap**-it shows the correlation between the numerical feature matrix
-```
+```python
 #correlation between variables in the feature matrix
 corr=data.select_dtypes("number").drop(columns="salary").corr()
 corr
 sns.heatmap(corr)
 ```
 ***Histogram of Salary distribution**-It shows the general distibiution of the salary(target matrix)
-```
+```python
 #histogram of target matrix
 plt.hist(data["salary"])
 plt.xlabel("salary")
@@ -62,7 +62,7 @@ plt.title("Distribution of Salary")
 ```
 ### Split the Matrix
 Split the data into Feature matrix and target matrix
-```
+```python
 #split of data into training data
 target="salary"
 features=['rank','discipline', 'yrs.since.phd', 'yrs.service', 'sex']
@@ -73,7 +73,7 @@ y_train.shape
 ```
 ### Make a baseline model
 make a baseline model
-```
+```python
 y_mean=y_train.mean()
 y_pred_baseline=[y_mean]*len(y_train)
 print("Mean salary:", mean_absolute_error(y_train,y_pred_baseline))
@@ -83,7 +83,7 @@ Pipeline Components:
 OneHotEncoder: Handles categorical variables (rank, discipline, sex)
 
 Ridge Regression: Regularized linear regression model
-```
+```python
 model=make_pipeline(
     OneHotEncoder("use_cat_name=True"),
     Ridge()
@@ -94,20 +94,20 @@ model.fit(X_train,y_train)
 Training MAE (Mean Absolute Error): Calculated during development
 
 Baseline comparison against mean salary prediction
-```
-y_pred_training=model.predict(X_train)
-mae_training=mean_absolute_error(y_train,y_pred_training)
+```python
+y_pred_training= model.predict(X_train)
+mae_training= mean_absolute_error(y_train,y_pred_training)
 mae_training
 ```
 ### test the model
-```
+```python
 X_test=pd.read_csv("salary.csv")[features]
 y_pred_test=pd.Series(model.predict(X_test))
 y_pred_test.head(5)
 ```
 ### Getting the intercept 
 The intercept term represents the baseline salary prediction when all feature values are zero. In our Ridge regression pipeline, we access it through:
-```
+```python
 intercept = model.named_steps['ridge'].intercept_
 intercept
 ```
@@ -126,14 +126,14 @@ discipline = A
 sex = Female
 ### Getting the coffiecient
 The coefficients in our salary prediction model quantify the relationship between each feature and the target salary amount. We access them through:
-```
+```python
 coefficients = model.named_steps['ridge'].coef_
 feature_names = model.named_steps['onehotencoder'].get_feature_names()
 feat_imp = pd.Series(coefficients, index=feature_names)
 ```
 ### Horizontal Bar Chart of Feature Importance
 This visualization displays the most influential features in our salary prediction model, ranked by the absolute value of their coefficients.
-```
+```python
 feat_imp.sort_values(key=abs).tail(15).plot(kind="barh")
 plt.xlabel("Salary")
 plt.ylabel("Feature")
@@ -157,7 +157,7 @@ Shorter bars = Weaker influence
 This function provides an interface to get salary predictions from our trained machine learning model using individual faculty characteristics.
 
 **Function Definition**
-```
+```python
 
 def make_predictions(rank, discipline, yrs_since_phd, yrs_service, sex):
     df = {
@@ -174,8 +174,8 @@ def make_predictions(rank, discipline, yrs_since_phd, yrs_service, sex):
 ````
 ### Prediction Function Testing
 This section demonstrates how to test the trained salary prediction model using the make_predictions() function.
-```
-#Test the model
+```python
+#Test the model by using the function
 result = make_predictions("Prof", "B", 15, 10, "Male")
 print(result)
 ```
