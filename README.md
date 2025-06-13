@@ -177,6 +177,6 @@ This section demonstrates how to test the trained salary prediction model using 
 ```
 #Test the model
 result = make_predictions("Prof", "B", 15, 10, "Male")
-print(result)s
+print(result)
 ```
 
